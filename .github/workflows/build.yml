@@ -108,13 +108,14 @@ jobs:
           name: TrickcalBingo-macOS
           path: ./macos
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v2   # 升级到 v2
-        with:
-          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || format('build-{0}', github.run_number) }}
-          name: Release ${{ github.ref_type == 'tag' && github.ref_name || format('Build {0}', github.run_number) }}
-          files: |
-            windows/TrickcalBingo.exe
-            macos/TrickcalBingo-macOS.zip
-          generate_release_notes: true
-          prerelease: ${{ github.event_name == 'workflow_dispatch' }}
+       - name: Create Release
+         uses: softprops/action-gh-release@v2
+         with:
+           tag_name: ${{ github.ref_type == 'tag' && github.ref_name || format('build-{0}', github.run_number) }}
+           name: Release ${{ github.ref_type == 'tag' && github.ref_name || format('Build {0}', github.run_number) }}
+           files: |
+             windows/TrickcalBingo.exe
+             macos/TrickcalBingo-macOS.zip
+           generate_release_notes: true 
+           draft: true                     
+           prerelease: false 
