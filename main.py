@@ -38,7 +38,7 @@ PATTERNS = [
     np.array([[1], [1], [1], [1], [1], [1], [1]], dtype=np.int8), # Vertical
 ]
 
-PATTERN_NAMES = ["십자(+)", "X자", "3×3", "가로줄", "세로줄"]
+PATTERN_NAMES = ["十字(+)", "X形", "3×3", "横线", "竖线"]
 
 
 # =============================================================================
@@ -799,7 +799,7 @@ class PatternDisplayWidget(QWidget):
                         painter.drawRect(x, y, self.cell_size - 1, self.cell_size - 1)
         else:
             painter.setPen(QColor("gray"))
-            painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, "없음")
+            painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, "无")
         
         painter.end()
 
@@ -825,7 +825,7 @@ class BingoGUI(QMainWindow):
         
         BingoGUI.SAVE_FILE = self._get_save_file_path()
         
-        self.setWindowTitle("Trickcal Bingo AI Assistant")
+        self.setWindowTitle("Trickcal Bingo AI Assistant AI汉化自Super-黑魂")
         self.resize(750, 600)
         
         # Initialize components
@@ -857,7 +857,7 @@ class BingoGUI(QMainWindow):
         left_layout.addWidget(self.board_widget, alignment=Qt.AlignmentFlag.AlignCenter)
         
         # Pattern label
-        pattern_label = QLabel("패턴 선택 (클릭하여 현재 패턴 설정):")
+        pattern_label = QLabel("选择图案（点击设置当前图案）：")
         font = pattern_label.font()
         font.setBold(True)
         pattern_label.setFont(font)
@@ -876,7 +876,7 @@ class BingoGUI(QMainWindow):
         main_layout.addWidget(right_panel, stretch=1)
         
         # Model selection group
-        model_group = QGroupBox("모델 선택")
+        model_group = QGroupBox("模型选择")
         model_layout = QVBoxLayout(model_group)
         
         self.model_label = QLabel()
@@ -886,19 +886,19 @@ class BingoGUI(QMainWindow):
         self.model_label.setFont(font)
         model_layout.addWidget(self.model_label)
         
-        self.switch_model_btn = QPushButton("모델 전환")
+        self.switch_model_btn = QPushButton("切换模型")
         self.switch_model_btn.clicked.connect(self._on_switch_model)
         model_layout.addWidget(self.switch_model_btn)
         
         right_layout.addWidget(model_group)
         
         # Current patterns group
-        patterns_group = QGroupBox("현재 패턴")
+        patterns_group = QGroupBox("当前图案")
         patterns_layout = QHBoxLayout(patterns_group)
         
         # Pattern 0 container (label above image)
         pattern_0_container = QVBoxLayout()
-        self.pattern_label_0 = QLabel("현재 패턴")
+        self.pattern_label_0 = QLabel("当前图案")
         self.pattern_label_0.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.pattern_display_0 = PatternDisplayWidget(0)
         pattern_0_container.addWidget(self.pattern_label_0, 0, Qt.AlignmentFlag.AlignCenter)
@@ -909,7 +909,7 @@ class BingoGUI(QMainWindow):
         
         # Pattern 1 container (label above image)
         pattern_1_container = QVBoxLayout()
-        self.pattern_label_1 = QLabel("저장된 패턴")
+        self.pattern_label_1 = QLabel("已存储图案")
         self.pattern_label_1.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.pattern_display_1 = PatternDisplayWidget(1)
         pattern_1_container.addWidget(self.pattern_label_1, 0, Qt.AlignmentFlag.AlignCenter)
@@ -929,13 +929,13 @@ class BingoGUI(QMainWindow):
         right_layout.addWidget(patterns_group)
         
         # Info group
-        info_group = QGroupBox("게임 정보")
+        info_group = QGroupBox("游戏信息")
         info_layout = QVBoxLayout(info_group)
         
-        self.turn_label = QLabel("턴: 0")
+        self.turn_label = QLabel("回合: 0")
         info_layout.addWidget(self.turn_label)
         
-        self.filled_label = QLabel("채워진 칸: 0 / 49")
+        self.filled_label = QLabel("已填充格子: 0 / 49")
         info_layout.addWidget(self.filled_label)
         
         # Status label for 2-pattern mode
@@ -946,19 +946,19 @@ class BingoGUI(QMainWindow):
         right_layout.addWidget(info_group)
         
         # Action buttons
-        action_group = QGroupBox("동작")
+        action_group = QGroupBox("操作")
         action_layout = QVBoxLayout(action_group)
         
-        self.swap_btn = QPushButton("패턴 교환")
+        self.swap_btn = QPushButton("交换图案")
         self.swap_btn.clicked.connect(self._on_swap_patterns)
         self.swap_btn.setEnabled(False)
         action_layout.addWidget(self.swap_btn)
         
-        self.undo_btn = QPushButton("이전으로")
+        self.undo_btn = QPushButton("撤销")
         self.undo_btn.clicked.connect(self._on_undo)
         action_layout.addWidget(self.undo_btn)
         
-        self.reset_btn = QPushButton("초기화")
+        self.reset_btn = QPushButton("重置")
         self.reset_btn.clicked.connect(self._on_reset)
         action_layout.addWidget(self.reset_btn)
         
@@ -966,12 +966,12 @@ class BingoGUI(QMainWindow):
         
         # Info label
         info_label = QLabel(
-            "■ 확률 10% 이상인 위치만 표시됩니다.\n"
-            "■ 색이 진할수록 높은 확률입니다.\n\n"
-            "색상 안내:\n"
-            "  • 파랑: 현재 패턴 배치 확률\n"
-            "  • 초록: 저장된 패턴 배치 확률\n"
-            "  • 보라: 위쪽은 현재 패턴, 아래쪽은 저장된 패턴 배치 확률"
+            "■ 仅显示概率≥10%的位置。\n"
+            "■ 颜色越深表示概率越高。\n\n"
+            "颜色说明：\n"
+            "  • 蓝色：当前图案放置概率\n"
+            "  • 绿色：已存储图案放置概率\n"
+            "  • 紫色：上方为当前图案，下方为已存储图案放置概率"
         )
         info_label.setStyleSheet("color: gray; font-size: 11px;")
         info_label.setWordWrap(True)
@@ -989,10 +989,10 @@ class BingoGUI(QMainWindow):
     def _update_model_label(self):
         num_patterns = self.model_manager.current_num_patterns
         if num_patterns == 2:
-            self.model_label.setText("현재: 2패턴 모드")
+            self.model_label.setText("当前：2图案模式 (新宾果)")
             self.model_label.setStyleSheet("color: #2196F3;")
         else:
-            self.model_label.setText("현재: 1패턴 모드")
+            self.model_label.setText("当前：1图案模式 (旧宾果)")
             self.model_label.setStyleSheet("color: #FF9800;")
     
     def _update_pattern_visibility(self):
@@ -1005,13 +1005,13 @@ class BingoGUI(QMainWindow):
         new_num = 1 if current == 2 else 2
         
         if new_num not in self.model_manager.models:
-            QMessageBox.warning(self, "경고", f"{new_num}패턴 모델을 찾을 수 없습니다.")
+            QMessageBox.warning(self, "警告", f"找不到{new_num}图案模型。")
             return
         
         if self.state.current_step > 0:
             reply = QMessageBox.question(
-                self, "확인",
-                "게임이 진행 중입니다. 모델을 전환하면 게임이 초기화됩니다.\n계속하시겠습니까?",
+                self, "确认",
+                "游戏进行中。切换模型会重置游戏。\n是否继续？",
                 QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
             )
             if reply != QMessageBox.StandardButton.Yes:
@@ -1121,8 +1121,8 @@ class BingoGUI(QMainWindow):
     
     def _on_reset(self):
         reply = QMessageBox.question(
-            self, "초기화",
-            "정말 초기화하시겠습니까?",
+            self, "重置",
+            "确定要重置吗？",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )
         if reply == QMessageBox.StandardButton.Yes:
@@ -1136,8 +1136,8 @@ class BingoGUI(QMainWindow):
         if np.all(self.state.board == 1):
             self._delete_save_file()
             QMessageBox.information(
-                self, "완료!",
-                f"빙고 완성! 총 {self.state.current_step}턴 소요되었습니다."
+                self, "完成！",
+                f"宾果完成！共用了{self.state.current_step}回合。"
             )
     
     def _update_display(self):
@@ -1161,7 +1161,7 @@ class BingoGUI(QMainWindow):
         if num_patterns >= 2:
             patterns_ready = all(p >= 0 for p in self.state.pattern_indices[:2])
             if not patterns_ready and self.state.current_step == 0:
-                self.status_label.setText("패턴 2개를 선택해주세요")
+                self.status_label.setText("请选择两个图案")
                 self.current_probs = None
                 self.swap_btn.setEnabled(False)
             elif not patterns_ready:
@@ -1268,9 +1268,9 @@ class BingoGUI(QMainWindow):
             threshold=0.10,
         )
         
-        self.turn_label.setText(f"턴: {self.state.current_step}")
+        self.turn_label.setText(f"回合: {self.state.current_step}")
         filled = np.sum(self.state.board)
-        self.filled_label.setText(f"채워진 칸: {filled} / 49")
+        self.filled_label.setText(f"已填充格子: {filled} / 49")
         self.undo_btn.setEnabled(len(self.state.history) > 0)
     
     def _try_load_saved_state(self):
@@ -1290,10 +1290,10 @@ class BingoGUI(QMainWindow):
                 return
             
             reply = QMessageBox.question(
-                self, "저장된 게임 발견",
-                f"이전에 저장된 게임이 있습니다.\n"
-                f"(턴: {current_step}, 채워진 칸: {filled}/49)\n\n"
-                f"이어서 하시겠습니까?",
+                self, "发现存档",
+                f"发现之前的游戏存档。\n"
+                f"(回合: {current_step}, 已填充格子: {filled}/49)\n\n"
+                f"是否继续？",
                 QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
             )
             
@@ -1303,7 +1303,7 @@ class BingoGUI(QMainWindow):
                 os.remove(self.SAVE_FILE)
                 
         except (json.JSONDecodeError, KeyError, TypeError) as e:
-            print(f"저장 파일 로드 실패: {e}")
+            print(f"加载存档失败: {e}")
             if os.path.exists(self.SAVE_FILE):
                 os.remove(self.SAVE_FILE)
     
@@ -1329,7 +1329,7 @@ class BingoGUI(QMainWindow):
             with open(self.SAVE_FILE, 'w', encoding='utf-8') as f:
                 json.dump(save_data, f, ensure_ascii=False, indent=2)
         except IOError as e:
-            print(f"게임 저장 실패: {e}")
+            print(f"保存游戏失败: {e}")
     
     def _delete_save_file(self):
         if os.path.exists(self.SAVE_FILE):
