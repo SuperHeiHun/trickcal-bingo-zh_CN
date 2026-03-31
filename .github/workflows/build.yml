@@ -8,7 +8,8 @@ on:
   workflow_dispatch:
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # 全局强制使用 Node.js 24（可选）
+  # 强制所有 JavaScript 动作使用 Node.js 24（提前适配）
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-windows:
@@ -108,14 +109,14 @@ jobs:
           name: TrickcalBingo-macOS
           path: ./macos
 
-       - name: Create Release
-         uses: softprops/action-gh-release@v2
-         with:
-           tag_name: ${{ github.ref_type == 'tag' && github.ref_name || format('build-{0}', github.run_number) }}
-           name: Release ${{ github.ref_type == 'tag' && github.ref_name || format('Build {0}', github.run_number) }}
-           files: |
-             windows/TrickcalBingo.exe
-             macos/TrickcalBingo-macOS.zip
-           generate_release_notes: true 
-           draft: true                     
-           prerelease: false 
+      - name: Create Release (as draft)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || format('build-{0}', github.run_number) }}
+          name: Release ${{ github.ref_type == 'tag' && github.ref_name || format('Build {0}', github.run_number) }}
+          files: |
+            windows/TrickcalBingo.exe
+            macos/TrickcalBingo-macOS.zip
+          generate_release_notes: true
+          draft: true                     # 创建为草稿，允许上传资产
+          prerelease: false               # 草稿发布时暂时不标记为预发布，后续可手动调整
